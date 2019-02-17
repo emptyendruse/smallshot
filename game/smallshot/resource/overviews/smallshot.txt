@@ -1,0 +1,8 @@
+smallshot
+{
+	material materials/overviews/smallshot.vmat
+	pos_x -4480
+	pos_y 5504
+	scale 9.750
+}
+

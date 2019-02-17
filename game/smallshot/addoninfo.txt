@@ -1,0 +1,9 @@
+"AddonInfo"
+{
+	"maps"			"smallshot"
+	"IsPlayable"	"1"
+	"smallshot"
+	{
+					"MaxPlayers"                    "6"
+	}
+}

@@ -1,0 +1,790 @@
+"DOTAAbilities"
+{
+	"item_disappearing_cloak"
+	{
+		"ID"							"1103"
+		"BaseClass"             		"item_lua"
+		"AbilityTextureName"			"item_disappearing_cloak"
+		"ScriptFile"					"/items/disappearing_cloak.lua"
+		"ItemCost"						"1300"
+
+		"HomeShop"						"0"
+		"SecretShop"					"1"
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemPurchasable"				"1"
+		"ItemSellable"					"1"
+		"AbilityCooldown"				"10.0"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"duration"					"3.0"
+			}
+			"02"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"cooldown"					"10.0"
+			}
+		}
+	}
+
+	"item_staff_of_binding"
+	{
+		"ID"							"1102"
+		"BaseClass"             		"item_datadriven"
+		"AbilityTextureName"			"item_staff_of_binding"
+		"ItemCost"						"1300"
+		"HomeShop"						"0"
+		"SecretShop"					"1"
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_PURE"
+		"AbilityCooldown"				"12.0"
+
+		"AbilityCastRange"				"700"
+		"AbilityCastPoint"				"0.3"
+
+		"ItemPurchasable" 				"1"
+		"ItemSellable"					"0"
+
+		"AOERadius"						"220"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"distance"				"1250"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"220"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"projectile_speed"		"900"
+			}
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"vision_radius"			"300"
+			}
+			"05"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"root_duration"			"3"
+			}
+			"06"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"net_width"				"100"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"TrackingProjectile"
+			{
+				"Target" 
+				{
+                    "Center"        "POINT"
+                    "Radius"        "%radius"
+                    "Teams"         "DOTA_UNIT_TARGET_TEAM_ENEMY"
+                    "Types"         "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+                }
+                "EffectName"        "particles/units/heroes/hero_meepo/meepo_earthbind_projectile_fx.vpcf"
+                "Dodgeable"         "1"
+                "ProvidesVision"    "1"
+                "VisionRadius"      "%vision_radius"
+                "MoveSpeed"         "%projectile_speed"   
+			}
+
+			"FireSound"
+			{
+				"EffectName"	"Hero_Meepo.Earthbind.Cast"
+				"Target" 		"CASTER"
+			}
+		}
+
+		"OnProjectileHitUnit"
+		{
+			"DeleteOnHit"	"1"
+
+			"ActOnTargets"
+			{
+				"Target" 
+				{
+                    "Center"        "POINT"
+                    "Radius"        "%radius"
+                    "Teams"         "DOTA_UNIT_TARGET_TEAM_ENEMY"
+                    "Types"         "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+                }
+
+                "Action"
+                {
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_staff_of_binding_root"
+						"Target"		"TARGET"
+						"Duration"		"%root_duration"
+					}
+				}
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_staff_of_binding_root"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsDebuff"			"1"
+				
+				"EffectName"		"particles/units/heroes/hero_meepo/meepo_earthbind.vpcf"
+				"EffectAttachType"	"attach_origin"
+
+				"States"
+				{
+					"MODIFIER_STATE_ROOTED"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+	}
+
+	"item_phase_shifters"
+	{
+		"ID"							"1101"
+		"BaseClass"						"item_datadriven"
+		"AbilityTextureName"			"item_phase_shifters"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES"
+
+		"AbilityCastPoint"				"0"
+		"AbilityCooldown"				"12.0"
+		"AbilityManaCost"				"0"
+
+		"ItemCost"						"1600"
+		"ItemPurchasable" 				"1"
+		"AbilityChannelTime"			"1.0"
+		"ItemSellable"					"0"
+		"SecretShop"					"1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"1.0"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_movement_speed"	"40"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"CreateThinker"
+			{
+				"ModifierName"	"modifier_phase_shifters_fx"
+				"Target" 		"CASTER"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_phase_shifters"
+				"Target" 		"CASTER"
+			}
+		}
+
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_phase_shifters"
+				"Target"		"CASTER"
+			}
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_phase_shifters_fx"
+				"Target" 		"CASTER"
+			}
+		}
+
+		"Modifiers" 
+		{
+			"modifier_phase_shifters"
+			{
+				"Passive"			"0"
+				"IsHidden"			"0"
+				"IsDebuff"			"0"
+
+				"Duration"			"%duration"
+
+				"OnCreated"
+				{
+					"FireSound"
+					{
+						"EffectName"	"Hero_Puck.Phase_Shift"
+						"Target" 		"CASTER"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"puck_puck_ability_phase_07"
+						"Target" 		"CASTER"
+					}
+
+					"RunScript"
+					{
+						"ScriptFile"	"items/phase_shifters.lua"
+						"Function"		"HideCaster"
+					}
+				}
+
+				"OnDestroy"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"items/phase_shifters.lua"
+						"Function"		"ShowCaster"
+					}
+				}
+
+				"States"
+				{
+					"MODIFIER_STATE_INVULNERABLE"		"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+
+			"modifier_phase_shifters_fx"
+			{
+				"Passive"		"0"
+				"IsHidden"		"1"
+				"IsDebuff"		"0"
+
+				"Duration"		"%duration"
+
+				"EffectName"		"particles/units/heroes/hero_puck/puck_phase_shift.vpcf"
+				"EffectAttachType"	"attach_origin"
+			}
+
+			"modifier_phase_shifters_passive"
+			{
+				"Passive"		"1"
+				"IsHidden"		"1"
+				"IsDebuff"		"0"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT"		"%bonus_movement_speed"
+				}
+			}
+		}
+	}
+
+	//==================================================================================
+	// Recipe: Phase Shifters
+	//==================================================================================
+	"item_recipe_phase_shifters"
+	{
+		"ID"							"1100"
+		"BaseClass"						"item_datadriven"
+		"ItemRecipe"					"1"
+		"ItemCost"						"1000"
+		"ItemResult"					"item_phase_shifters"
+		"SecretShop"					"1"
+		"AbilityTextureName"			"item_recipe_phase_boots"
+		"ItemRequirements"
+		{
+			"01"						"item_boots"
+		}
+
+	}
+
+	//==================================================================================
+	//== ITEM: Meteor Hammer
+	//==================================================================================
+
+	"item_meteor_hammer_dummy"
+	{
+		"ID"							"1099" 
+		"BaseClass"						"item_datadriven"
+		"AbilityTextureName"			"item_meteor_hammer_dummy"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+		"Model"							"models/props_gameplay/red_box.vmdl" 
+		"Effect"						"particles/generic_gameplay/dropped_item.vpcf"
+		"ItemQuality"  "artifact"
+		"ItemKillable" "0" 
+		"ItemPurchasable" "1"
+		"ItemDroppable" "1"
+		"ItemSellable"					"0"
+		"ItemCost"						"1200"
+		"SecretShop"					"1"
+		"AbilityCooldown"				"10.0"
+		
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_strength"		"4"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"bonus_health_regen"		"1.5"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"burn_dps_units"		"25"
+			}
+			"04"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"burn_duration"		"4"
+			}
+			"05"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"stun_duration"		"2.5"
+			}
+			"06"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"burn_interval"				"1.0"
+			}
+			"07"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"land_time"				".5"
+			}
+			"08"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"impact_radius"		"315"
+			}
+			"09"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"max_duration"		"2.5"
+			}
+			"10"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"impact_damage_units"		"50"
+			}
+		}
+
+		"Modifiers"
+		{
+			"fixitem"
+			{
+				"IsHidden"	"1"
+				"Passive"	"1"
+				"OnCreated"
+				{
+					"DelayedAction"
+					{
+						"Delay"		"0.1"
+						"Action"
+						{
+							"RunScript"
+							{
+								"ScriptFile"		"abilities.lua"
+								"Function"			"FixItem"
+								"RealItem"			"item_meteor_hammer"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	//==================================================================================
+	//== ITEM: Scout Bot
+	//==================================================================================
+	"item_scout_bot"
+	{
+	
+		
+		// Item Stuff
+		//-------------------------------------------------------------------------------------------------------------
+		
+		"id"					"1098"
+		"BaseClass"				"item_datadriven"
+		"AbilityTextureName"	"item_scout_bot"
+		"Model"					"models/props_gameplay/red_box.vmdl" 
+		"Effect"				"particles/generic_gameplay/dropped_item.vpcf"
+		"ItemQuality"  "artifact"
+
+		"ItemSellable"					"0"
+		"ItemCost"     "1000"
+		"ItemKillable" "0" 
+		"ItemPurchasable" "1"
+		"ItemDroppable" "1"
+		"ItemShareability" "ITEM_NOT_SHAREABLE"
+
+		"SecretShop"   "0"
+
+		"ItemStackable" "0"
+		"ItemPermanent" "1"
+		"ItemDisassembleRule" "DOTA_ITEM_DISASSEMBLE_NEVER"
+		
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.3"
+		"AbilityCastRange"				"0"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"40.0"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"distance"			"9000"
+			}
+			"02"
+			{	
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"10.0"
+			}
+			"03"
+			{	
+				"var_type"			"FIELD_INTEGER"
+				"speed"				"500"
+			}
+			"04"
+			{	
+				"var_type"			"FIELD_INTEGER"
+				"vision_radius"		"1500"
+			}
+			"05"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"bonus_strength"	"4"
+			}
+		}
+
+		"Modifiers"
+		{
+			"item_scout_bot_passive"
+			{
+				"Passive"			"1"
+				"IsHidden"			"1"
+				"IsDebuff"			"0"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"		"%bonus_strength"
+				}
+
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"LinearProjectile"
+			{
+				"Target"			"POINT"
+				"EffectName"		"particles/units/heroes/hero_tinker/tinker_machine.vpcf"
+				"MoveSpeed"			"%speed"
+				"StartRadius"		"0"
+				"EndRadius"			"0"
+				"FixedDistance"		"%distance"
+				"StartPosition"		"attach_attack1"
+				"AbilityUnitTargetType"	"DOTA_UNIT_TARGET_NONE"
+				"TargetTeams"		"DOTA_UNIT_TARGET_TEAM_NONE"
+				"HasFrontalCone"	"0"
+				"ProvidesVision"	"1"
+				"VisionRadius"		"%vision_radius"
+			}
+		}
+	}
+
+	//==================================================================================
+	//== ITEM: Gem of Vengeance
+	//==================================================================================
+	"item_gem_of_vengeance"
+	{
+	
+		
+		// Item Stuff
+		//-------------------------------------------------------------------------------------------------------------
+		
+		"id"					"1097"
+		"BaseClass"				"item_datadriven"
+		"AbilityTextureName"	"item_gem_of_vengeance"
+		"Model"					"models/props_gameplay/red_box.vmdl" 
+		"Effect"				"particles/generic_gameplay/dropped_item.vpcf"
+		"ItemQuality"  "artifact"
+
+		"ItemSellable"	"0"
+		"ItemCost"     "1400"
+		"ItemKillable" "0" 
+		"ItemPurchasable" "1"
+		"ItemDroppable" "1"
+		"ItemShareability" "ITEM_NOT_SHAREABLE"
+
+		"SecretShop"   "1"
+
+		"ItemStackable" "0"
+		"ItemPermanent" "1"
+		"ItemDisassembleRule" "DOTA_ITEM_DISASSEMBLE_NEVER"
+		
+		
+		
+		
+		
+		
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_NO"
+		"FightRecapLevel"				"1"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0.3"
+		"AbilityCastRange"				"1300"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"15.0"
+		
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"range"				"1300"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_movement_speed"	"10"
+			}
+		}
+		"Modifiers"
+		{
+			"item_gem_of_vengeance_passive"
+			{
+				"Passive"			"1"
+				"IsHidden"			"1"
+				"IsDebuff"			"0"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT"		"%bonus_movement_speed"
+				}
+
+			}
+		}
+		"OnSpellStart"
+		{
+
+			"FireSound"
+			{
+				"EffectName"	"Hero_VengefulSpirit.NetherSwap"
+				"Target" 		"TARGET"
+			}
+			
+			"FireSound"
+			{
+				"EffectName"	"Hero_VengefulSpirit.NetherSwap"
+				"Target" 		"CASTER"
+			}
+			
+			"FireEffect"
+			{
+				"EffectName"        "particles/units/heroes/hero_vengeful/vengeful_nether_swap.vpcf"
+				"EffectAttachType"  "start_at_customorigin"
+				
+				"ControlPointEntities"
+				{
+					"TARGET"	"follow_origin"
+					"CASTER"	"follow_origin"
+				}
+			}
+
+			"FireEffect"
+			{
+				"EffectName"        "particles/units/heroes/hero_vengeful/vengeful_nether_swap_target.vpcf"
+				"EffectAttachType"  "start_at_customorigin"
+				
+				"ControlPointEntities"
+				{
+					"CASTER"	"follow_origin"
+					"TARGET"	"follow_origin"
+				}
+			}
+			"RunScript"
+			{
+				"ScriptFile"	"abilities\swap.lua"
+				"Function"		"swap_ability"
+			}
+		}
+	}
+
+	//==================================================================================
+	//==ITEM: Manta Style
+	//==================================================================================
+	"item_manta_dummy"
+	{
+		"ID"							"1096" 
+		"BaseClass"						"item_datadriven"
+		"AbilityTextureName"			"item_manta_dummy"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"Model"							"models/props_gameplay/red_box.vmdl" 
+		"Effect"						"particles/generic_gameplay/dropped_item.vpcf"
+		"ItemQuality"  "artifact"
+		"ItemKillable" "0" 
+		"ItemPurchasable" "1"
+		"ItemDroppable" "1"
+		"ItemSellable"					"0"
+		"ItemCost"						"1100"
+		"SecretShop"					"1"	
+		"AbilityCooldown"				"20.0"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_strength"		"2"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_movement_speed"	"5"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"images_count"			"1"
+			}			
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"tooltip_illusion_duration"			"20"
+			}
+		}
+
+		"Modifiers"
+		{
+			"fixitem"
+			{
+				"IsHidden"	"1"
+				"Passive"	"1"
+				"OnCreated"
+				{
+					"DelayedAction"
+					{
+						"Delay"		"0.1"
+						"Action"
+						{
+							"RunScript"
+							{
+								"ScriptFile"		"abilities.lua"
+								"Function"			"FixItem"
+								"RealItem"			"item_manta"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+	//==================================================================================
+	//== ITEM: Refresher Orb
+	//==================================================================================
+	"item_refresher_dummy"
+	{
+		"ID"							"1095" 
+		"BaseClass"						"item_datadriven"
+		"AbilityTextureName"			"item_refresher_dummy"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"Model"							"models/props_gameplay/red_box.vmdl" 
+		"Effect"						"particles/generic_gameplay/dropped_item.vpcf"
+		"ItemQuality"  "artifact"
+		"ItemKillable" "0" 
+		"ItemPurchasable" "1"
+		"ItemDroppable" "1"
+		"ItemSellable"					"0"
+		"ItemCost"						"1350"
+		"SecretShop"					"1"
+		"AbilityCooldown"				"30.0"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_health_regen"	"3"
+			}
+		}
+
+		"Modifiers"
+		{
+			"fixitem"
+			{
+				"IsHidden"	"1"
+				"Passive"	"1"
+				"OnCreated"
+				{
+					"DelayedAction"
+					{
+						"Delay"		"0.1"
+						"Action"
+						{
+							"RunScript"
+							{
+								"ScriptFile"		"abilities.lua"
+								"Function"			"FixItem"
+								"RealItem"			"item_refresher"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
