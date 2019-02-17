@@ -1,0 +1,29 @@
+<root>
+	<script>
+		var glyphscan = $.GetContextPanel().GetParent().GetParent().FindChildTraverse("HUDElements").FindChildTraverse("minimap_container").FindChildTraverse("GlyphScanContainer").style.visibility = "collapse";
+
+		var shopHUD = $.GetContextPanel().GetParent().GetParent().FindChildTraverse("HUDElements").FindChildTraverse("shop").FindChildTraverse("GuideFlyout").style.visibility = "collapse";
+
+		var commonitems = $.GetContextPanel().GetParent().GetParent().FindChildTraverse("HUDElements").FindChildTraverse("shop").FindChildTraverse("Main").FindChildTraverse("HeightLimiter").FindChildTraverse("CommonItems").style.visibility = "collapse";
+
+		var pauseinfo = $.GetContextPanel().GetParent().GetParent().FindChildTraverse("PausedInfo");
+
+		var tips = pauseinfo.FindChildTraverse("TipContainer").style.visibility = "collapse";
+
+		var tipleft = pauseinfo.FindChildTraverse("PrevTip").style.visibility = "collapse";
+
+		var tipright = pauseinfo.FindChildTraverse("NextTip").style.visibility = "collapse";
+
+		var herofilter = $.GetContextPanel().GetParent().GetParent().FindChildTraverse("PreGame").FindChildTraverse("MainContents").FindChildTraverse("ScreenContainer").FindChildTraverse("HeroPickScreen").FindChildTraverse("HeroPickScreenContents").FindChildTraverse("MainHeroPickScreenContents").FindChildTraverse("HeroPickLeftColumn").FindChildTraverse("HeroFilters").style.visibility = "collapse";
+
+		var pregameminimap = $.GetContextPanel().GetParent().GetParent().FindChildTraverse("PreGame").FindChildTraverse("BottomPanelsContainer").FindChildTraverse("PreMinimapContainer").style.visibility = "collapse";
+
+		var dotaplus = $.GetContextPanel().GetParent().GetParent().FindChildTraverse("PreGame").FindChildTraverse("BottomPanelsContainer").FindChildTraverse("BottomPanels").FindChildTraverse("GridTeamComp").style.visibility = "collapse";
+
+
+	</script>
+ 	<Panel>
+ 		<CustomUIElement type="HudTopBar"			layoutfile="file://{resources}/layout/custom_game/top_scoreboard.xml" />
+ 	</Panel>
+	
+</root>
