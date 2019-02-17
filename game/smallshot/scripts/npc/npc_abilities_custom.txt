@@ -16,9 +16,9 @@
 		"AbilityCastRange"				"2000"
 		"AbilityCastPoint"				"0.0"
 	
-		"AbilityCooldown"				"2.0"
+		"AbilityCooldown"				"12.0"
 	
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"20"
 	
 		"AbilitySpecial"
 		{
@@ -55,7 +55,7 @@
 			"07"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"damage"				"70"
+				"damage"				"130"
 			}
 		}
 	
@@ -138,76 +138,6 @@
 			}
 		}
 	}
-	
-
-	"hookshot_skill"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"BaseClass"						"rattletrap_hookshot"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
-		"MaxLevel"						"1"
-		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
-		"AbilityUnitDamageType"			"DAMAGE_TYPE_MAGICAL"	
-		"SpellImmunityType"				"SPELL_IMMUNITY_ENEMIES_YES"
-		"FightRecapLevel"				"1"
-		"AbilityTextureName"			"rattletrap_hookshot"
-	
-		// Casting
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCastPoint"				"0.3"
-		"AbilityCastRange"				"3000"
-		
-		// Time		
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"20.0"
-		
-		// Cost
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
-		
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"			"FIELD_INTEGER"
-				"latch_radius"		"125"
-			}
-			"02"
-			{
-				"var_type"			"FIELD_INTEGER"
-				"stun_radius"		"175"
-			}
-			"03"
-			{	
-				"var_type"			"FIELD_FLOAT"
-				"duration"			"2.0"
-			}
-			
-			"04"
-			{	
-				"var_type"			"FIELD_INTEGER"
-				"speed"				"6000"
-			}
-			"05"
-			{	
-				"var_type"			"FIELD_INTEGER"
-				"tooltip_range"		"3000"
-			}
-			"06"
-			{
-				"var_type"			"FIELD_INTEGER"
-				"damage"			"40"
-			}
-			"07"
-			{	
-				"var_type"			"FIELD_FLOAT"
-				"cooldown_scepter"	"10.0"
-			}
-		}
-	}
 
 	// Rewrite of the Invoker Sun Strike ability
 	// Author: Pizzalol
@@ -233,8 +163,8 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"0"
 		"AbilityCastPoint"				"0"
-		"AbilityCooldown"				"8"
-		"AbilityManaCost"				"0"
+		"AbilityCooldown"				"10"
+		"AbilityManaCost"				"15"
 			
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -253,7 +183,7 @@
 			"03"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"damage"				"100"
+				"damage"				"160"
 			}
 			"04"
 			{
@@ -365,16 +295,16 @@
 	
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityCooldown"				"12.0"
+		"AbilityCooldown"				"8.0"
 		"AbilityDuration"				"3.11"
 	
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityDamage"					"40"
+		"AbilityDamage"					"100"
 	
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"10"
 	
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -538,7 +468,7 @@
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
-		"AbilityManaCost"				"0"
+		"AbilityManaCost"				"15"
 
 		// Special
 		//-------------------------------------------------------------------------------------------------------------
@@ -577,7 +507,7 @@
 			"07"
 			{
 				"var_type"			"FIELD_INTEGER"
-				"hook_damage"		"50"
+				"hook_damage"		"120"
 			}
 		}
 	}
